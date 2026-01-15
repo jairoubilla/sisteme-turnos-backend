@@ -3,9 +3,9 @@ import mysql.connector # Conecta con mysql
 # Conexion a MYSQL
 def obtener_conexion():
     return mysql.connector.connect(
-        host="mysql.railway.internal",
+        host="trolley.proxy.rlwy.net",
         user="root",
         password="TBIXjsnZuuVevTwtUeDcRJkEuNyFTdZe",
         database="railway",
-        port=3306
+        port=40353
 )
