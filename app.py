@@ -6,7 +6,7 @@ from routes.routes_medicos import medicos_bp
 
 app = Flask(__name__) # crea la aplicacion flask
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/*": {"origins": "https://sistema-turnos-frontend-production.up.railway.app"}})
 
 # Manejo de errores 
 @app.errorhandler(404)
