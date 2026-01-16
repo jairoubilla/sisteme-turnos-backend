@@ -6,7 +6,10 @@ from routes.routes_medicos import medicos_bp
 
 app = Flask(__name__) # crea la aplicacion flask
 
-CORS(app, resources={r"/*": {"origins": "https://sistema-turnos-frontend-production.up.railway.app"}})
+CORS(app, resources={r"/*": {"origins": [
+    "https://aiturnos.up.railway.app",
+    "https://sistema-turnos-frontend-production.up.railway.app"
+    ]}})
 
 # Manejo de errores 
 @app.errorhandler(404)
