@@ -13,8 +13,7 @@ class MedicoSchema(Schema):
     nombre = fields.Str(required=True)
     especialidad = fields.Str(required=True)
     matricula = fields.Str(required=True)
-    telefono = fields.Str(required=False)
-    
+    telefono = fields.Str(required=False, allow_none=True)
     
 class TurnoSchema(Schema):
     id = fields.Int(dump_only=True)
