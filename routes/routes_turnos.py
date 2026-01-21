@@ -13,7 +13,7 @@ def obtener_turnos():
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True) #Crea un cursor que devuelve resultados
     query = """
-        SELECT t.id, p.nombre AS paciente, p.telefono AS telefono_paciente,
+        SELECT t.id, t.paciente_id, p.nombre AS paciente, p.telefono AS telefono_paciente,
                 m.nombre AS medico, t.fecha, t.hora, t.motivo, t.estado
         FROM turnos t
         JOIN pacientes p ON t.paciente_id = p.id
