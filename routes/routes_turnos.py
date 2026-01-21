@@ -34,9 +34,6 @@ def obtener_turnos():
 @turnos_bp.route("/turnos", methods=["POST"])
 def agregar_turno():
     json_data = request.get_json()
-    if not json_data:
-        return jsonify({"error": "Faltan datos en la petición"}), 400
-    
     try:
         # Marshmallow valida tipos de datos y presencia de campos obligatorios
         # También convierte los strings de fecha/hora a objetos Python
@@ -73,8 +70,8 @@ def agregar_turno():
     # Si no tiene turnos agendados sigue con el proceso
     
     cursor.execute(
-        "INSERT INTO turnos (paciente_id, medico_id, fecha, hora, motivo) VALUES (%s, %s, %s, %s, %s)",
-        (datos['paciente_id'], datos['medico_id'], datos['fecha'], datos['hora'], datos['motivo'])
+        "INSERT INTO turnos (paciente_id, medico_id, fecha, hora, motivo, estado) VALUES (%s, %s, %s, %s, %s,%s)",
+        (datos['paciente_id'], datos['medico_id'], datos['fecha'], datos['hora'], datos['motivo'], datos.get('estado', 'Pendiente'))
     )
     
     conexion.commit()
@@ -91,12 +88,13 @@ def actualizar_turno(id):
     fecha = datos.get("fecha")
     hora = datos.get("hora")
     motivo = datos.get("motivo")
+    estado = datos.get("estado")
     
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     cursor.execute(
-        "UPDATE turnos SET fecha = %s, hora = %s, motivo = %s WHERE id = %s",
-        (fecha, hora, motivo, id)
+        "UPDATE turnos SET fecha = COALESCE(%s, fecha), hora = COALESCE(%s, hora), motivo = COALESCE(%s, motivo), estado = COALESCE(%s, estado) WHERE id = %s",
+        (fecha, hora, motivo, estado, id)
     )
     filas_afectadas = cursor.rowcount
     conexion.commit()

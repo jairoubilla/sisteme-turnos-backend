@@ -23,6 +23,7 @@ class TurnoSchema(Schema):
     fecha = fields.Date(required=True, validate=validar_fecha_futura) # Valida formato AAAA-MM-DD
     hora = fields.Time(required=True) # Valida formato HH:MM:SS
     motivo = fields.Str(required=True)
+    estado = fields.Str(dump_default="Pendiente")
     
 paciente_schema = PacienteSchema()
 pacientes_schema = PacienteSchema(many=True)
