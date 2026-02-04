@@ -14,6 +14,7 @@ class MedicoSchema(Schema):
     especialidad = fields.Str(required=True)
     matricula = fields.Str(required=True)
     telefono = fields.Str(required=False, allow_none=True)
+    consultorio = fields.Str()
     
 class TurnoSchema(Schema):
     id = fields.Int(dump_only=True)
